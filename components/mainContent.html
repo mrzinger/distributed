@@ -8,7 +8,7 @@
 </div>
 <span class="container">
     <span ng-show="boardId !== ''" class="message-list" x-lvl-drop-target="true" x-on-drop="droppedEvent(dragEl, dropEl)" data-column-id="{{type.id}}" ng-class="{'selected': isColumnSelected(type.id)}" ng-repeat="type in board.columns">
-        <ul class="column {{utils.columnClass(type.id)}}">
+        <ul class="column {{utils.columnClass(type.id)}}" x-lvl-draggable="true" lvl-drop-over-custom-style="column-lvl-over" x-lvl-drop-target="true" x-on-drop="droppedEvent(dragEl, dropEl)">
           <div class="column-header">
             <a class="controls delete" ng-show="!editing && board.columns.length > 1" href="javascript:void(0)" ng-click="modalService.openDeleteColumn(this)"><i class="fa fa-times"></i></a>
             <h2 ng-show="!editing" ng-click="editing = true; newName=type.value;">

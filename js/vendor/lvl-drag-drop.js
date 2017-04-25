@@ -26,6 +26,7 @@ module.directive('lvlDraggable', ['$rootScope', 'uuid', function ($rootScope, uu
 }]);
 
 module.directive('lvlDropTarget', ['$rootScope', 'uuid', function ($rootScope, uuid) {
+    
     return {
         restrict: 'A',
         scope: {
@@ -83,6 +84,33 @@ module.directive('lvlDropTarget', ['$rootScope', 'uuid', function ($rootScope, u
                 angular.element(el).removeClass("lvl-target");
                 angular.element(el).removeClass("lvl-over");
             });
+        }
+    };
+}]);
+
+module.directive('lvlDropOverCustomStyle', ['$rootScope', 'uuid', function ($rootScope, uuid) {
+    
+    return {
+        restrict: 'A',
+        link: function (scope, el, attrs, controller) {
+            var id = angular.element(el).attr("id");
+            if (!id) {
+                id = uuid.new();
+                angular.element(el).attr("id", id);
+            }
+            el.bind("dragenter", function (e) {
+                // this / e.target is the current hover target.
+                angular.element(e.target).addClass(attrs.lvlDropOverCustomStyle);
+            });
+
+            el.bind("dragleave", function (e) {
+                angular.element(e.target).removeClass(attrs.lvlDropOverCustomStyle);  // this / e.target is previous target element.
+            });
+
+             el.bind("draglend", function (e) {
+                angular.element(e.target).removeClass(attrs.lvlDropOverCustomStyle);  // this / e.target is previous target element.
+            });
+
         }
     };
 }]);
